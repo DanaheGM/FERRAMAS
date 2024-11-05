@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - FERREMAS</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Carrito de Compras</h1>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/productos">Productos</a>
+            <a href="/contacto">Contacto</a>
+            <a href="/login">Iniciar Sesión</a>
+            <a href="/carrito">Carrito de Compras</a>
+            <span id="carrito-contador">(0)</span> <!-- Contador del carrito -->
+        </nav>
+    </header>
+    <main>
+        <h2>Productos en tu Carrito</h2>
+        <div id="carrito"></div>
+        <h3>Total: $<span id="total"></span></h3>
+        <button onclick="vaciarCarrito()"><i class="fas fa-trash-alt"></i> Vaciar Carrito</button>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 FERREMAS - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        function cargarCarrito() {
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            const carritoDiv = document.getElementById('carrito');
+            let total = 0;
+            carritoDiv.innerHTML = '';
+
+            carrito.forEach((producto, index) => {
+                carritoDiv.innerHTML += `
+                    <p>
+                        ${producto.nombre} - $${producto.precio} (Cantidad: ${producto.cantidad})
+                        <button onclick="ajustarCantidad(${index}, 'incrementar')">+</button>
+                        <button onclick="ajustarCantidad(${index}, 'disminuir')">-</button>
+                        <button onclick="eliminarProducto(${index})">Eliminar</button>
+                    </p>
+                `;
+                total += producto.precio * producto.cantidad;
+            });
+
+            document.getElementById('total').textContent = total;
+            actualizarContadorCarrito(); // Actualizar el contador del carrito
+        }
+
+        function ajustarCantidad(index, accion) {
+            const carrito = JSON.parse(localStorage.getItem('carrito'));
+
+            if (accion === 'incrementar') {
+                carrito[index].cantidad += 1;
+            } else if (accion === 'disminuir') {
+                carrito[index].cantidad -= 1;
+                // Si la cantidad es 0, eliminamos el producto del carrito
+                if (carrito[index].cantidad === 0) {
+                    carrito.splice(index, 1);
+                }
+            }
+
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            cargarCarrito(); // Actualiza la visualización del carrito
+            actualizarContadorCarrito(); // Actualizar el contador del carrito
+        }
+
+        function eliminarProducto(index) {
+            const carrito = JSON.parse(localStorage.getItem('carrito'));
+            carrito.splice(index, 1); // Elimina el producto en el índice especificado
+            localStorage.setItem('carrito', JSON.stringify(carrito)); // Guarda el carrito actualizado
+            cargarCarrito(); // Actualiza la visualización del carrito
+            actualizarContadorCarrito(); // Actualizar el contador del carrito
+        }
+
+        function vaciarCarrito() {
+            localStorage.removeItem('carrito');
+            cargarCarrito();
+            alert('El carrito ha sido vaciado.');
+            actualizarContadorCarrito(); // Actualizar el contador del carrito
+        }
+
+        function actualizarContadorCarrito() {
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            let totalProductos = 0;
+
+            carrito.forEach(producto => {
+                totalProductos += producto.cantidad;
+            });
+
+            document.getElementById('carrito-contador').textContent = `(${totalProductos})`;
+        }
+
+        cargarCarrito();
+    </script>
+</body>
+</html>

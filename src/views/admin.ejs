@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - FERREMAS</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Panel de Administración</h1>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/productos">Productos</a>
+            <a href="/contacto">Contacto</a>
+            <a href="/carrito">Carrito de Compras</a>
+            <a href="/logout">Cerrar Sesión</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="admin-container">
+            <h2>Bienvenido, Administrador</h2>
+            <p>Desde aquí puedes modificar precios y stock de los productos.</p>
+
+            <form action="/admin/update-products" method="POST">
+                <h3>Modificar Productos</h3>
+
+                <div class="product-modify">
+                    <h4>Taladro</h4>
+                    <label for="taladro-precio">Precio:</label>
+                    <input type="number" id="taladro-precio" name="taladro-precio" value="50000" required>
+                    <label for="taladro-stock">Stock:</label>
+                    <input type="number" id="taladro-stock" name="taladro-stock" value="25" required>
+                </div>
+
+                <div class="product-modify">
+                    <h4>Martillo</h4>
+                    <label for="martillo-precio">Precio:</label>
+                    <input type="number" id="martillo-precio" name="martillo-precio" value="10000" required>
+                    <label for="martillo-stock">Stock:</label>
+                    <input type="number" id="martillo-stock" name="martillo-stock" value="30" required>
+                </div>
+
+                <div class="product-modify">
+                    <h4>Destornillador</h4>
+                    <label for="destornillador-precio">Precio:</label>
+                    <input type="number" id="destornillador-precio" name="destornillador-precio" value="5000" required>
+                    <label for="destornillador-stock">Stock:</label>
+                    <input type="number" id="destornillador-stock" name="destornillador-stock" value="40" required>
+                </div>
+
+                <div class="product-modify">
+                    <h4>Sierra</h4>
+                    <label for="sierra-precio">Precio:</label>
+                    <input type="number" id="sierra-precio" name="sierra-precio" value="8000" required>
+                    <label for="sierra-stock">Stock:</label>
+                    <input type="number" id="sierra-stock" name="sierra-stock" value="20" required>
+                </div>
+
+                <div class="product-modify">
+                    <h4>Alicate</h4>
+                    <label for="alicate-precio">Precio:</label>
+                    <input type="number" id="alicate-precio" name="alicate-precio" value="4500" required>
+                    <label for="alicate-stock">Stock:</label>
+                    <input type="number" id="alicate-stock" name="alicate-stock" value="15" required>
+                </div>
+
+                <div class="product-modify">
+                    <h4>Llave Inglesa</h4>
+                    <label for="llave-inglesa-precio">Precio:</label>
+                    <input type="number" id="llave-inglesa-precio" name="llave-inglesa-precio" value="7500" required>
+                    <label for="llave-inglesa-stock">Stock:</label>
+                    <input type="number" id="llave-inglesa-stock" name="llave-inglesa-stock" value="10" required>
+                </div>
+
+                <button type="submit">Actualizar Productos</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 FERREMAS - Todos los derechos reservados</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!-- views/productos.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Productos</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Catálogo de Productos</h1>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/productos">Productos</a>
+            <a href="/contacto">Contacto</a>
+            <a href="/login">Iniciar Sesión</a>
+            <a href="/carrito">Carrito de Compras</a>
+        </nav>
+    </header>
+    <main>
+        <div class="productos">
+            <div class="producto">
+                <h3>Martillo</h3>
+                <p>Precio: $5.000</p>
+                <button onclick="agregarAlCarrito(1, 'Martillo', 5000)">Agregar al Carrito</button>
+            </div>
+            <div class="producto">
+                <h3>Destornillador</h3>
+                <p>Precio: $3.000</p>
+                <button onclick="agregarAlCarrito(2, 'Destornillador', 3000)">Agregar al Carrito</button>
+            </div>
+            <div class="producto">
+                <h3>Sierra</h3>
+                <p>Precio: $8.000</p>
+                <button onclick="agregarAlCarrito(3, 'Sierra', 8000)">Agregar al Carrito</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 FERREMAS - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        function agregarAlCarrito(id, nombre, precio) {
+            let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            const productoExistente = carrito.find(producto => producto.id === id);
+
+            if (productoExistente) {
+                productoExistente.cantidad += 1;
+            } else {
+                carrito.push({ id, nombre, precio, cantidad: 1 });
+            }
+
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            alert(`${nombre} agregado al carrito`);
+        }
+    </script>
+</body>
+</html>
